@@ -52,10 +52,10 @@ const App = () => {
       <section id="home" className="min-h-screen flex flex-col justify-center items-start max-w-6xl mx-auto px-6 pt-20">
         <div className="space-y-6 max-w-3xl">
           <p className="text-cyan-400 font-mono">Hi, my name is</p>
-          <h1 className="text-5xl md:text-7xl font-bold text-slate-100 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">
             Jasiel Villa-Estrada.
           </h1>
-          <h2 className="text-4xl md:text-6xl font-bold text-slate-500 tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-bold text-slate-300 tracking-tight">
             I engineer data into action.
           </h2>
           <p className="text-lg text-slate-400 leading-relaxed max-w-2xl pt-4">
@@ -197,10 +197,10 @@ const App = () => {
             <a href="mailto:jasielvilla@gmail.com" className="p-4 bg-slate-800 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-full transition-all text-slate-300">
               <Mail size={28} />
             </a>
-            <a href="#" className="p-4 bg-slate-800 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-full transition-all text-slate-300">
+            <a href="https://github.com/jasielvilla-blip" target="_blank" rel="noopener noreferrer" className="p-4 bg-slate-800 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-full transition-all text-slate-300">
               <GithubIcon size={28} />
             </a>
-            <a href="#" className="p-4 bg-slate-800 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-full transition-all text-slate-300">
+            <a href="https://www.linkedin.com/in/jasielvilla" target="_blank" rel="noopener noreferrer" className="p-4 bg-slate-800 hover:bg-cyan-500/10 hover:text-cyan-400 rounded-full transition-all text-slate-300">
               <LinkedinIcon size={28} />
             </a>
           </div>
