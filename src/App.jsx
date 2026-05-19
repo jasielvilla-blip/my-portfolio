@@ -7,17 +7,21 @@ import {
   Mail, 
   ChevronDown,
   ExternalLink,
-  Briefcase
+  Briefcase,
+  Menu,
+  X
 } from 'lucide-react';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const scrollTo = (id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(id);
+      setIsMobileMenuOpen(false); // Close menu after clicking
     }
   };
 
@@ -28,8 +32,10 @@ const App = () => {
       <nav className="fixed top-0 inset-x-0 mx-auto max-w-6xl bg-slate-950/80 backdrop-blur-md z-50 border-b border-slate-800">
         <div className="px-6 py-4 flex justify-between items-center">
           <div className="text-xl font-bold text-cyan-400 tracking-tight">JVE</div>
+          
+          {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 text-sm font-medium">
-            {['Home', 'Skills', 'Projects', 'Experience'].map((item) => (
+            {['Home', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
               <button 
                 key={item}
                 onClick={() => scrollTo(item.toLowerCase())}
@@ -39,13 +45,33 @@ const App = () => {
               </button>
             ))}
           </div>
+          
+          {/* Hamburger Icon for Mobile */}
           <button 
-            onClick={() => scrollTo('contact')}
-            className="md:hidden text-sm font-medium hover:text-cyan-400"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden text-slate-300 hover:text-cyan-400 transition-colors"
+            aria-label="Toggle menu"
           >
-            Contact
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute w-full left-0 top-full bg-slate-950 border-b border-slate-800 shadow-xl">
+            <div className="flex flex-col px-6 py-4 space-y-4 text-sm font-medium">
+              {['Home', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
+                <button 
+                  key={item}
+                  onClick={() => scrollTo(item.toLowerCase())}
+                  className="text-left hover:text-cyan-400 transition-colors py-2"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
