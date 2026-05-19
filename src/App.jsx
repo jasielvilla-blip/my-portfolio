@@ -25,8 +25,8 @@ const App = () => {
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-cyan-500/30 overflow-x-hidden">
       
       {/* Navigation */}
-      <nav className="fixed top-0 inset-x-0 bg-slate-950/80 backdrop-blur-md z-50 border-b border-slate-800">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 inset-x-0 mx-auto max-w-6xl bg-slate-950/80 backdrop-blur-md z-50 border-b border-slate-800">
+        <div className="px-6 py-4 flex justify-between items-center">
           <div className="text-xl font-bold text-cyan-400 tracking-tight">JVE</div>
           <div className="hidden md:flex space-x-8 text-sm font-medium">
             {['Home', 'Skills', 'Projects', 'Experience'].map((item) => (
