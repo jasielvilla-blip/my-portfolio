@@ -736,15 +736,16 @@ const TableauScorecards = ({ onBack }) => {
     const divElement = document.getElementById('viz1779333883470');
     const vizElement = divElement.getElementsByTagName('object')[0];
     
+    // Adjusted height values to remove excess white space
     if (divElement.offsetWidth > 800) { 
-      vizElement.style.width = '1000px'; 
-      vizElement.style.height = '1027px'; 
+      vizElement.style.width = '100%'; 
+      vizElement.style.height = '350px'; 
     } else if (divElement.offsetWidth > 500) { 
-      vizElement.style.width = '1000px'; 
-      vizElement.style.height = '1027px'; 
+      vizElement.style.width = '100%'; 
+      vizElement.style.height = '850px'; 
     } else { 
       vizElement.style.width = '100%'; 
-      vizElement.style.height = '2777px'; 
+      vizElement.style.height = '850px'; 
     }
     
     // Check if script is already present to prevent duplicates on remounts
