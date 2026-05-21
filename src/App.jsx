@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Database, 
   Code2, 
@@ -44,6 +44,10 @@ const App = () => {
   
   if (currentView === 'inventory-app') {
     return <InventoryAppDemo onBack={() => setCurrentView('portfolio')} />;
+  }
+
+  if (currentView === 'tableau-scorecards') {
+    return <TableauScorecards onBack={() => setCurrentView('portfolio')} />;
   }
 
   return (
@@ -188,8 +192,10 @@ const App = () => {
             />
             <ProjectCard 
               title="Staff and Department Scorecards"
-              description="Created Tableau-based scorecards to monitor agency, department, team, and individual performance. Conducted feasibility studies to optimize data sources for transparent, repeatable reporting mechanisms."
+              description="Created Tableau-based scorecards to monitor agency, department, team, and individual performance. Conducted feasibility studies to optimize data sources for transparent, repeatable reporting mechanisms. (Live interactive dashboard embedded below)"
               tags={['Tableau', 'Data Architecture', 'Business Intelligence']}
+              actionText="View Live Dashboard"
+              onAction={() => setCurrentView('tableau-scorecards')}
             />
           </div>
         </div>
@@ -720,6 +726,104 @@ const InventoryAppDemo = ({ onBack }) => {
           </div>
         </div>
 
+      </div>
+    </div>
+  );
+};
+
+const TableauScorecards = ({ onBack }) => {
+  useEffect(() => {
+    const divElement = document.getElementById('viz1779333883470');
+    const vizElement = divElement.getElementsByTagName('object')[0];
+    
+    if (divElement.offsetWidth > 800) { 
+      vizElement.style.width = '1000px'; 
+      vizElement.style.height = '1027px'; 
+    } else if (divElement.offsetWidth > 500) { 
+      vizElement.style.width = '1000px'; 
+      vizElement.style.height = '1027px'; 
+    } else { 
+      vizElement.style.width = '100%'; 
+      vizElement.style.height = '2777px'; 
+    }
+    
+    // Check if script is already present to prevent duplicates on remounts
+    if (!document.getElementById('tableau-api-script')) {
+      const scriptElement = document.createElement('script');
+      scriptElement.id = 'tableau-api-script';
+      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+      vizElement.parentNode.insertBefore(scriptElement, vizElement);
+    }
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans p-6 md:p-12 overflow-x-hidden selection:bg-cyan-500/30">
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={onBack}
+              className="p-2 bg-slate-900 border border-slate-800 hover:border-cyan-500 hover:text-cyan-400 rounded-lg transition-all"
+            >
+              <ArrowLeft size={24} />
+            </button>
+            <div>
+              <h1 className="text-3xl font-bold text-slate-100 flex items-center gap-3">
+                <BarChart3 className="text-cyan-400" /> 
+                Staff and Department Scorecards
+              </h1>
+              <p className="text-slate-400 mt-1">Live Tableau Public Embed</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Tableau Container */}
+        <div className="bg-white p-2 rounded-xl border border-slate-800 overflow-hidden flex justify-center shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+          <div className='tableauPlaceholder' id='viz1779333883470' style={{ position: 'relative' }}>
+            <noscript>
+              <a href='#'>
+                <img alt='Dashboard 1 ' src='https://public.tableau.com/static/images/NH/NHPDKFS27/1_rss.png' style={{ border: 'none' }} />
+              </a>
+            </noscript>
+            <object className='tableauViz' style={{ display: 'none' }}>
+              <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+              <param name='embed_code_version' value='3' /> 
+              <param name='path' value='shared/NHPDKFS27' /> 
+              <param name='toolbar' value='yes' />
+              <param name='static_image' value='https://public.tableau.com/static/images/NH/NHPDKFS27/1.png' /> 
+              <param name='animate_transition' value='yes' />
+              <param name='display_static_image' value='yes' />
+              <param name='display_spinner' value='yes' />
+              <param name='display_overlay' value='yes' />
+              <param name='display_count' value='yes' />
+              <param name='language' value='en-US' />
+            </object>
+          </div>
+        </div>
+        
+        {/* Explanation Block */}
+        <div className="bg-slate-900/50 p-6 md:p-8 rounded-xl border border-slate-800 mt-12">
+          <h2 className="text-xl font-bold text-slate-100 mb-6 flex items-center gap-2">
+            <Info size={22} className="text-cyan-400" /> 
+            Under the Hood: Tableau React Integration
+          </h2>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-cyan-500 mb-2">Dynamic Script Injection</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">
+                Since React single-page applications do not execute inline <code>&lt;script&gt;</code> tags inherently for security reasons, this demo utilizes the <code>useEffect</code> hook to dynamically calculate device width and inject the Tableau JavaScript API into the Document Object Model (DOM) seamlessly after the component mounts.
+              </p>
+            </div>
+            <div className="h-px w-full bg-slate-800"></div>
+            <div>
+              <h3 className="text-lg font-semibold text-cyan-500 mb-2">Preserved Design Environment</h3>
+              <p className="text-slate-400 leading-relaxed text-sm">
+                The embedding container uses specific Tailwind classes (<code>bg-white</code> and custom overflow handling) to ensure that the bright colors and layout styling built in Tableau do not clash visually with the overarching "dark mode" theme of the portfolio architecture.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
