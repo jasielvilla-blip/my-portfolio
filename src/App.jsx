@@ -100,8 +100,8 @@ const App = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex flex-col justify-center items-start max-w-6xl mx-auto px-6 pt-20">
-        <div className="space-y-6 max-w-3xl">
+      <section id="home" className="min-h-screen flex flex-col justify-center items-center max-w-6xl mx-auto px-6 pt-20 text-center">
+        <div className="space-y-6 max-w-3xl flex flex-col items-center">
           <p className="text-cyan-400 font-mono">Hi, my name is</p>
           <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">
             Jasiel Villa-Estrada.
@@ -109,10 +109,10 @@ const App = () => {
           <h2 className="text-4xl md:text-6xl font-bold text-slate-300 tracking-tight">
             I engineer data into action.
           </h2>
-          <p className="text-lg text-slate-400 leading-relaxed max-w-2xl pt-4">
+          <p className="text-lg text-slate-400 leading-relaxed max-w-2xl pt-4 mx-auto">
             I am a Data Analyst, Full-Stack Developer, and Business Operator. I specialize in translating complex data into actionable insights for executive leadership and engineering robust, full-stack solutions to optimize business operations.
           </p>
-          <div className="flex flex-wrap gap-4 pt-8">
+          <div className="flex flex-wrap justify-center gap-4 pt-8">
             <button 
               onClick={() => scrollTo('projects')}
               className="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold rounded-lg transition-colors flex items-center gap-2"
@@ -196,6 +196,7 @@ const App = () => {
               tags={['Tableau', 'Data Architecture', 'Business Intelligence']}
               actionText="View Live Dashboard"
               onAction={() => setCurrentView('tableau-scorecards')}
+              mobileDisabledText="View demo on desktop"
             />
           </div>
         </div>
@@ -304,7 +305,7 @@ const SkillCard = ({ icon, title, skills }) => (
   </div>
 );
 
-const ProjectCard = ({ title, description, tags, actionText, onAction }) => (
+const ProjectCard = ({ title, description, tags, actionText, onAction, mobileDisabledText }) => (
   <div className="bg-slate-900 p-8 rounded-xl border border-slate-800 hover:-translate-y-2 hover:border-cyan-500/50 transition-all duration-300 flex flex-col h-full">
     <div className="flex justify-between items-start mb-6">
       <Briefcase className="text-cyan-400" size={32} />
@@ -324,13 +325,29 @@ const ProjectCard = ({ title, description, tags, actionText, onAction }) => (
           </span>
         ))}
       </div>
-      {actionText && (
+      {actionText && !mobileDisabledText && (
         <button 
           onClick={onAction}
           className="mt-2 w-full py-2.5 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-semibold rounded-lg transition-colors flex justify-center items-center gap-2"
         >
           {actionText}
         </button>
+      )}
+      {actionText && mobileDisabledText && (
+        <>
+          <button 
+            onClick={onAction}
+            className="hidden md:flex mt-2 w-full py-2.5 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-semibold rounded-lg transition-colors justify-center items-center gap-2"
+          >
+            {actionText}
+          </button>
+          <button 
+            disabled
+            className="flex md:hidden mt-2 w-full py-2.5 bg-slate-800/40 border border-slate-800 text-slate-500 font-semibold rounded-lg justify-center items-center gap-2 cursor-not-allowed"
+          >
+            {mobileDisabledText}
+          </button>
+        </>
       )}
     </div>
   </div>
@@ -739,13 +756,13 @@ const TableauScorecards = ({ onBack }) => {
     // Adjusted height values to remove excess white space
     if (divElement.offsetWidth > 800) { 
       vizElement.style.width = '100%'; 
-      vizElement.style.height = '1000px'; 
+      vizElement.style.height = '850px'; 
     } else if (divElement.offsetWidth > 500) { 
       vizElement.style.width = '100%'; 
-      vizElement.style.height = '1000px'; 
+      vizElement.style.height = '850px'; 
     } else { 
       vizElement.style.width = '100%'; 
-      vizElement.style.height = '1000px'; 
+      vizElement.style.height = '850px'; 
     }
     
     // Check if script is already present to prevent duplicates on remounts
