@@ -182,6 +182,7 @@ const App = () => {
               title="Real-Time KPM Dashboard"
               description="Built an Oracle Business Intelligence and Tableau dashboard that tracks whether Key Performance Measures are met and identifies contributing factors for missed goals. Partnered with database administrators to validate data sources, successfully removing barriers to data limitations."
               tags={['Oracle BI', 'Tableau', 'SQL', 'Data Modeling']}
+              disabledText="Demo Coming Soon"
             />
             <ProjectCard 
               title="UV Printer Ink Calculator"
@@ -305,7 +306,7 @@ const SkillCard = ({ icon, title, skills }) => (
   </div>
 );
 
-const ProjectCard = ({ title, description, tags, actionText, onAction, mobileDisabledText }) => (
+const ProjectCard = ({ title, description, tags, actionText, onAction, mobileDisabledText, disabledText }) => (
   <div className="bg-slate-900 p-8 rounded-xl border border-slate-800 hover:-translate-y-2 hover:border-cyan-500/50 transition-all duration-300 flex flex-col h-full">
     <div className="flex justify-between items-start mb-6">
       <Briefcase className="text-cyan-400" size={32} />
@@ -325,7 +326,15 @@ const ProjectCard = ({ title, description, tags, actionText, onAction, mobileDis
           </span>
         ))}
       </div>
-      {actionText && !mobileDisabledText && (
+      {disabledText && (
+        <button 
+          disabled
+          className="mt-2 w-full py-2.5 bg-slate-800/40 border border-slate-800 text-slate-500 font-semibold rounded-lg flex justify-center items-center gap-2 cursor-not-allowed"
+        >
+          {disabledText}
+        </button>
+      )}
+      {actionText && !mobileDisabledText && !disabledText && (
         <button 
           onClick={onAction}
           className="mt-2 w-full py-2.5 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-semibold rounded-lg transition-colors flex justify-center items-center gap-2"
@@ -333,7 +342,7 @@ const ProjectCard = ({ title, description, tags, actionText, onAction, mobileDis
           {actionText}
         </button>
       )}
-      {actionText && mobileDisabledText && (
+      {actionText && mobileDisabledText && !disabledText && (
         <>
           <button 
             onClick={onAction}
