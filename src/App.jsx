@@ -739,13 +739,13 @@ const TableauScorecards = ({ onBack }) => {
     // Adjusted height values to remove excess white space
     if (divElement.offsetWidth > 800) { 
       vizElement.style.width = '100%'; 
-      vizElement.style.height = '900px'; 
+      vizElement.style.height = '1000px'; 
     } else if (divElement.offsetWidth > 500) { 
       vizElement.style.width = '100%'; 
-      vizElement.style.height = '900px'; 
+      vizElement.style.height = '1000px'; 
     } else { 
       vizElement.style.width = '100%'; 
-      vizElement.style.height = '900px'; 
+      vizElement.style.height = '1000px'; 
     }
     
     // Check if script is already present to prevent duplicates on remounts
